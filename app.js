@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
+import gradeRouter from './routes/gradeRouter.js';
 
 import { db } from './models/index.js';
 
@@ -10,7 +11,9 @@ import { db } from './models/index.js';
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
+    console.log('Conectado ao MongoDB com sucesso');
   } catch (error) {
+    console.log('Erro ao conectar ao MongoDB');
     process.exit();
   }
 })();
@@ -25,6 +28,7 @@ app.use(
     origin: 'https://grades-app-front-desafio.herokuapp.com',
   })
 );
+app.use(gradeRouter);
 
 app.get('/', (req, res) => {
   res.send('API em execucao');
